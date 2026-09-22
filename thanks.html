@@ -34,6 +34,7 @@
     </tbody>
   </table>
   <p id="no-params-message" style="display:none;">受信したパラメータはありません。</p>
+  <p id="record-status"></p>
 </main>
 
 <footer>
@@ -41,6 +42,10 @@
 </footer>
 
 <script>
+// 記録サーバー（Render上のFastAPI）のエンドポイント。
+// 後で司令塔が差し替えられるよう、この1箇所にまとめてある。
+const INBOX_URL = "https://neconote-test-inbox.onrender.com/submissions";
+
 // 受信日時（クライアント時刻）を表示する
 document.getElementById('received-at').textContent =
   '受信日時: ' + new Date().toLocaleString('ja-JP');
@@ -69,6 +74,50 @@ for (const [key, value] of params.entries()) {
 if (count === 0) {
   document.getElementById('result-table').style.display = 'none';
   document.getElementById('no-params-message').style.display = 'block';
+}
+
+// クエリが空（直接開いた場合）でなければ記録サーバーへ送信する
+const recordStatus = document.getElementById('record-status');
+
+if (count > 0) {
+  const fields = {};
+  for (const [key, value] of params.entries()) {
+    fields[key] = value;
+  }
+
+  // 送信元ページのパスは referrer から取る（無ければ "unknown"）
+  let page = 'unknown';
+  if (document.referrer) {
+    try {
+      page = new URL(document.referrer).pathname;
+    } catch (e) {
+      page = 'unknown';
+    }
+  }
+
+  recordStatus.textContent = '記録サーバーへ送信中…（無料サーバーのため初回は最大1分かかります）';
+
+  fetch(INBOX_URL, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({
+      page: page,
+      received_at: new Date().toISOString(),
+      fields: fields,
+    }),
+  })
+    .then((res) => {
+      if (!res.ok) {
+        throw new Error('HTTP ' + res.status);
+      }
+      return res.json();
+    })
+    .then((data) => {
+      recordStatus.textContent = '記録済み（受付番号 ' + data.id + '）';
+    })
+    .catch((err) => {
+      recordStatus.textContent = '記録に失敗しました: ' + err.message;
+    });
 }
 </script>
 </body>
