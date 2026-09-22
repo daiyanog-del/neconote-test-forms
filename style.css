@@ -1,0 +1,179 @@
+/* テスト株式会社（ネコノテ検証用） 共通スタイル */
+/* シンプルな中小企業サイト風。装飾は最小限にする */
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  font-family: "Hiragino Kaku Gothic ProN", "Yu Gothic", "Meiryo", sans-serif;
+  margin: 0;
+  padding: 0;
+  color: #222;
+  background: #f7f7f5;
+  line-height: 1.7;
+}
+
+header {
+  background: #2b4c6f;
+  color: #fff;
+  padding: 16px 24px;
+}
+
+header .site-title {
+  font-size: 1.3em;
+  font-weight: bold;
+  margin: 0;
+}
+
+nav {
+  background: #1f3550;
+  padding: 8px 24px;
+}
+
+nav a {
+  color: #fff;
+  text-decoration: none;
+  margin-right: 20px;
+  font-size: 0.95em;
+}
+
+nav a:hover {
+  text-decoration: underline;
+}
+
+.notice-banner {
+  background: #fff3cd;
+  color: #7a5b00;
+  border-bottom: 1px solid #e0c56a;
+  padding: 10px 24px;
+  font-size: 0.9em;
+  text-align: center;
+}
+
+.no-sales-banner {
+  background: #fdecea;
+  color: #9a2b1f;
+  border: 1px solid #f5b7ae;
+  padding: 12px 24px;
+  margin: 20px auto;
+  max-width: 800px;
+  font-weight: bold;
+  text-align: center;
+}
+
+main {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 24px;
+  background: #fff;
+  min-height: 400px;
+}
+
+h1 {
+  font-size: 1.6em;
+  border-bottom: 3px solid #2b4c6f;
+  padding-bottom: 8px;
+}
+
+h2 {
+  font-size: 1.2em;
+  color: #2b4c6f;
+  margin-top: 2em;
+}
+
+footer {
+  text-align: center;
+  padding: 16px;
+  color: #777;
+  font-size: 0.85em;
+}
+
+table {
+  border-collapse: collapse;
+  width: 100%;
+  margin-top: 16px;
+}
+
+table th, table td {
+  border: 1px solid #ccc;
+  padding: 8px 10px;
+  text-align: left;
+  font-size: 0.95em;
+}
+
+table th {
+  background: #eef2f6;
+  width: 30%;
+}
+
+form .form-row {
+  margin-bottom: 16px;
+}
+
+form label {
+  display: block;
+  font-weight: bold;
+  margin-bottom: 4px;
+}
+
+form input[type="text"],
+form input[type="email"],
+form input[type="tel"],
+form input[type="url"],
+form select,
+form textarea {
+  width: 100%;
+  padding: 8px;
+  border: 1px solid #bbb;
+  border-radius: 4px;
+  font-size: 1em;
+}
+
+form .half-row {
+  display: flex;
+  gap: 16px;
+}
+
+form .half-row .form-row {
+  flex: 1;
+}
+
+form .tel-split {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+form .tel-split input {
+  width: 80px;
+}
+
+form .checkbox-row label {
+  display: inline;
+  font-weight: normal;
+  margin-left: 6px;
+}
+
+button, input[type="submit"] {
+  background: #2b4c6f;
+  color: #fff;
+  border: none;
+  padding: 10px 24px;
+  border-radius: 4px;
+  font-size: 1em;
+  cursor: pointer;
+}
+
+button.secondary {
+  background: #888;
+  margin-right: 8px;
+}
+
+button:hover, input[type="submit"]:hover {
+  opacity: 0.9;
+}
+
+#confirm-screen {
+  display: none;
+}

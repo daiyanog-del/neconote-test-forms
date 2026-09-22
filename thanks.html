@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<title>送信完了 | テスト株式会社（ネコノテ検証用）</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div class="notice-banner">
+  これはネコノテアクションの動作検証用のダミーサイトです。実在の企業ではありません。
+</div>
+
+<header>
+  <p class="site-title">テスト株式会社（ネコノテ検証用）</p>
+</header>
+
+<nav>
+  <a href="index.html">会社概要</a>
+  <a href="contact.html">お問い合わせ</a>
+  <a href="contact2.html">お問い合わせ（詳細フォーム）</a>
+</nav>
+
+<main>
+  <h1>お問い合わせを受け付けました（ダミー）</h1>
+  <p id="received-at"></p>
+
+  <table id="result-table">
+    <thead>
+      <tr><th>項目名</th><th>入力内容</th></tr>
+    </thead>
+    <tbody id="result-body">
+      <!-- JSでURLクエリの内容を出力する -->
+    </tbody>
+  </table>
+  <p id="no-params-message" style="display:none;">受信したパラメータはありません。</p>
+</main>
+
+<footer>
+  &copy; テスト株式会社（ネコノテ検証用） ― これはダミーサイトです
+</footer>
+
+<script>
+// 受信日時（クライアント時刻）を表示する
+document.getElementById('received-at').textContent =
+  '受信日時: ' + new Date().toLocaleString('ja-JP');
+
+// URLクエリの全キー・値を表形式で表示する
+// XSS対策として textContent を使い、innerHTML は使用しない
+const params = new URLSearchParams(window.location.search);
+const tbody = document.getElementById('result-body');
+let count = 0;
+
+for (const [key, value] of params.entries()) {
+  count++;
+  const tr = document.createElement('tr');
+
+  const th = document.createElement('th');
+  th.textContent = key;
+
+  const td = document.createElement('td');
+  td.textContent = value === '' ? '(空)' : value;
+
+  tr.appendChild(th);
+  tr.appendChild(td);
+  tbody.appendChild(tr);
+}
+
+if (count === 0) {
+  document.getElementById('result-table').style.display = 'none';
+  document.getElementById('no-params-message').style.display = 'block';
+}
+</script>
+</body>
+</html>
